@@ -1,14 +1,26 @@
 <?php
+// app/Models/NvkQuanTri.php
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class NvkQuanTri extends Model
+class NvkQuanTri extends Authenticatable
 {
-    // Chỉ định tên bảng
     protected $table = 'nvkQuanTri';
 
-    // Khai báo các cột có thể điền giá trị
-    protected $fillable = ['nvkTaiKhoan', 'nvkMatKhau', 'nvkTrangThai'];
+    protected $fillable = [
+        'nvkTaiKhoan',
+        'nvkMatKhau',
+        'nvkTrangThai',
+    ];
+
+    protected $hidden = [
+        'nvkMatKhau',
+    ];
+
+    public function getAuthPassword()
+    {
+        return $this->nvkMatKhau;
+    }
 }

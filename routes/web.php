@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Auth\NvkLoginController;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\NVKTestLogin;
 use App\Http\Controllers\NvkQuanTriController;
 use App\Http\Controllers\NvkLoaiSanPhamController;
 use App\Http\Controllers\NvkSanPhamController;
@@ -28,10 +29,18 @@ Route::get('/admin', function () {
     return view('nvkLayouts.Admins.Master');
 });
 
-// nvkLogin
-Route::get('nvkLogin', [NvkLoginController::class, 'showLoginForm'])->name('nvkLogin');
-Route::post('nvkLogin', [NvkLoginController::class, 'login']);
-Route::post('nvkLogout', [NvkLoginController::class, 'logout'])->name('nvkLogout');
+//nvkLogin
+Route::get('/login', [NVKTestLogin::class, 'showLoginForm'])->name('login');
+Route::post('/login', [NVKTestLogin::class, 'login']);
+Route::post('/logout', function () {
+    Auth::logout();
+    return redirect('/login');
+})->name('logout');
+
+Route::get('/dashboard', function () {
+    return view('nvkLayouts.Admins.Master');
+})->name('dashboard')->middleware('auth');
+
 
 // nvkQuanTri
 Route::resource('nvkquantri', NvkQuanTriController::class);

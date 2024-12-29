@@ -1,25 +1,17 @@
 <?php
+namespace Database\Seeders;
 
-namespace App\Models;
+use Illuminate\Database\Seeder;
+use App\Models\NvkQuanTri;
 
-use Illuminate\Foundation\Auth\User as Authenticatable;
-
-class NvkQuanTri extends Authenticatable
+class NvkQuanTriSeeder extends Seeder
 {
-    protected $table = 'nvkQuanTri';
-
-    protected $fillable = [
-        'nvkTaiKhoan',
-        'nvkMatKhau',
-        'nvkTrangThai',
-    ];
-
-    protected $hidden = [
-        'nvkMatKhau',
-    ];
-
-    public function getAuthPassword()
+    public function run()
     {
-        return $this->nvkMatKhau;
+        NvkQuanTri::create([
+            'nvkTaiKhoan' => 'nguyenvankhai2262@gmail.com',
+            'nvkMatKhau' => bcrypt('AniKMizu@2262'), // Sử dụng bcrypt để hash mật khẩu
+            'nvkTrangThai' => 1, // Giả sử bạn có một cột trạng thái
+        ]);
     }
 }
